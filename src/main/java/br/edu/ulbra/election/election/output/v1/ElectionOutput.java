@@ -11,7 +11,7 @@ public class ElectionOutput {
     @ApiModelProperty(example = "2018", notes = "Election Year")
     private Integer year;
     @ApiModelProperty(example = "RS", notes = "State Code")
-    private String state_code;
+    private String stateCode;
     @ApiModelProperty(example = "Senator", notes = "Election Description")
     private String description;
 
@@ -32,11 +32,11 @@ public class ElectionOutput {
     }
 
     public String getStateCode() {
-        return state_code;
+        return stateCode;
     }
 
     public void setStateCode(String stateCode) {
-        this.state_code = stateCode;
+        this.stateCode = stateCode;
     }
 
     public String getDescription() {

@@ -84,7 +84,7 @@ public class ElectionService {
 
         try {
             election.setDescription(electionInput.getDescription());
-            election.setId(electionInput.getId());
+            //election.setId(electionInput.getId());
             election.setStateCode(electionInput.getStateCode());
             election.setYear(electionInput.getYear());
         }catch (Exception e){
