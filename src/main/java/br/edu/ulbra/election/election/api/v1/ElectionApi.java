@@ -1,7 +1,7 @@
 package br.edu.ulbra.election.election.api.v1;
 
 import br.edu.ulbra.election.election.input.v1.ElectionInput;
-import br.edu.ulbra.election.election.output.v1.ElectionOutput;
+import br.edu.ulbra.election.election.output.v1.VoteOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.service.ElectionService;
 import io.swagger.annotations.ApiOperation;
@@ -21,37 +21,37 @@ public class ElectionApi {
 
     @GetMapping("/")
     @ApiOperation(value = "Get election List")
-    public List<ElectionOutput> getAll(){
+    public List<VoteOutput> getAll(){
         return electionService.getAll();
         //return new ArrayList<>();
     }
 
     @GetMapping("/{year}")
     @ApiOperation(value = "Get election List by year")
-    public ElectionOutput getByYear(@PathVariable Integer year){
+    public VoteOutput getByYear(@PathVariable Integer year){
         return electionService.getByYear(year);
         //return new ArrayList<>();
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get election by Id")
-    public ElectionOutput getById(@PathVariable Long id){
+    public VoteOutput getById(@PathVariable Long id){
         return electionService.getById(id);
-        //return new ElectionOutput();
+        //return new VoteOutput();
     }
 
     @PutMapping("/")
     @ApiOperation(value = "Create new election")
-    public ElectionOutput create(@RequestBody ElectionInput electionInput){
+    public VoteOutput create(@RequestBody ElectionInput electionInput){
         return electionService.create(electionInput);
-        //return new ElectionOutput();
+        //return new VoteOutput();
     }
 
     @PostMapping("/{id}")
     @ApiOperation(value = "Update election")
-    public ElectionOutput update(@PathVariable Long id, @RequestBody ElectionInput electionInput){
+    public VoteOutput update(@PathVariable Long id, @RequestBody ElectionInput electionInput){
         return electionService.update(id, electionInput);
-        //return new ElectionOutput();
+        //return new VoteOutput();
     }
 
     @DeleteMapping("/{id}")

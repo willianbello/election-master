@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "Election Output Information")
-public class ElectionOutput {
+public class VoteOutput {
 
     @ApiModelProperty(example = "1", notes = "Election Unique Identification")
     private Long id;

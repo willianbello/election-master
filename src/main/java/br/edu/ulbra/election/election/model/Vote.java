@@ -3,7 +3,7 @@ package br.edu.ulbra.election.election.model;
 import javax.persistence.*;
 
 @Entity
-@Table (name="Vote")
+@Table (name="Election")
 public class Vote {
 
     @Id

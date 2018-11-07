@@ -3,9 +3,9 @@ package br.edu.ulbra.election.election.service;
 import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.input.v1.ElectionInput;
 import br.edu.ulbra.election.election.model.Election;
-import br.edu.ulbra.election.election.output.v1.ElectionOutput;
+import br.edu.ulbra.election.election.output.v1.VoteOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
-import br.edu.ulbra.election.election.repository.ElectionRepository;
+import br.edu.ulbra.election.election.repository.VoteRepository;
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class ElectionService {
 
-    private final ElectionRepository electionRepository;
+    private final VoteRepository electionRepository;
 
     private final ModelMapper modelMapper;
 
@@ -26,26 +26,26 @@ public class ElectionService {
     private static final String MESSAGE_ELECTION_NOT_FOUND = "Election not found";
 
     @Autowired
-    public ElectionService(ElectionRepository electionRepository, ModelMapper modelMapper){
+    public ElectionService(VoteRepository electionRepository, ModelMapper modelMapper){
 
         this.electionRepository = electionRepository;
         this.modelMapper = modelMapper;
 
     }
 
-    public List<ElectionOutput> getAll(){
-        Type electionOutputListType = new TypeToken<List<ElectionOutput>>(){}.getType();
+    public List<VoteOutput> getAll(){
+        Type electionOutputListType = new TypeToken<List<VoteOutput>>(){}.getType();
         return modelMapper.map(electionRepository.findAll(), electionOutputListType);
     }
 
-    public ElectionOutput create(ElectionInput electionInput) {
+    public VoteOutput create(ElectionInput electionInput) {
         validateInput(electionInput, false);
         Election election = modelMapper.map(electionInput, Election.class);
         election = electionRepository.save(election);
-        return modelMapper.map(election, ElectionOutput.class);
+        return modelMapper.map(election, VoteOutput.class);
     }
 
-    public ElectionOutput getByYear(Integer year){
+    public VoteOutput getByYear(Integer year){
         if (year == null){
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
@@ -56,10 +56,10 @@ public class ElectionService {
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
 
-        return modelMapper.map(election, ElectionOutput.class);
+        return modelMapper.map(election, VoteOutput.class);
     }
 
-    public ElectionOutput getById(Long id){
+    public VoteOutput getById(Long id){
         if (id == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
         }
@@ -69,10 +69,10 @@ public class ElectionService {
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
 
-        return modelMapper.map(election, ElectionOutput.class);
+        return modelMapper.map(election, VoteOutput.class);
     }
 
-    public ElectionOutput update(Long id, ElectionInput electionInput) {
+    public VoteOutput update(Long id, ElectionInput electionInput) {
         if (id == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
         }
@@ -93,7 +93,7 @@ public class ElectionService {
         }
 
         election = electionRepository.save(election);
-        return modelMapper.map(election, ElectionOutput.class);
+        return modelMapper.map(election, VoteOutput.class);
     }
 
     public GenericOutput delete(Long id) {
@@ -115,6 +115,9 @@ public class ElectionService {
         if (StringUtils.isBlank(electionInput.getDescription())){
             throw new GenericOutputException("Invalid description");
         }
+        if (electionInput.getDescription().length() < 5){
+            throw new GenericOutputException("Invalid description. Min. 5 letters");
+        }
         if (StringUtils.isBlank(electionInput.getStateCode())){
             throw new GenericOutputException("Invalid state code");
         }
@@ -125,7 +128,7 @@ public class ElectionService {
         if (StringUtils.isBlank(year)){
             throw new GenericOutputException("Invalid year");
         }
-        String [] state = {"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RR", "RO", "RJ", "RN", "RS", "SC", "SP", "SE", "TO"};
+        String [] state = {"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RR", "RO", "RJ", "RN", "RS", "SC", "SP", "SE", "TO", "BR"};
         int i = 0;
         for(String stateCode:state){
             if (stateCode.equalsIgnoreCase(electionInput.getStateCode())){

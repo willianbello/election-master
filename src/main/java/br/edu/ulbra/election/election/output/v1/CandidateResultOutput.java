@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class CandidateResultOutput {
 
     @ApiModelProperty(notes = "Election Information")
-    private ElectionOutput election;
+    private VoteOutput election;
 
     @ApiModelProperty(notes = "Candidate Information")
     private CandidateOutput candidate;
@@ -16,11 +16,11 @@ public class CandidateResultOutput {
     @ApiModelProperty(notes = "Total Votes")
     private Long totalVotes;
 
-    public ElectionOutput getElection() {
+    public VoteOutput getElection() {
         return election;
     }
 
-    public void setElection(ElectionOutput election) {
+    public void setElection(VoteOutput election) {
         this.election = election;
     }
 
