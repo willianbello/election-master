@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Vote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long electionId;
 
     @Column(nullable = false)

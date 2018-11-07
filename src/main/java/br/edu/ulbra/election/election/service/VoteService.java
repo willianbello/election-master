@@ -32,7 +32,7 @@ public class VoteService {
     }
 
     public GenericOutput electionVote(VoteInput voteInput){
-
+        
         return new GenericOutput("OK");
     }
 
