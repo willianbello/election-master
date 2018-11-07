@@ -6,6 +6,7 @@ import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.output.v1.ElectionOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,12 +112,30 @@ public class ElectionService {
     }
 
     private void validateInput(ElectionInput electionInput, boolean isUpdate){
-        //if (StringUtils.isBlank(voterInput.getEmail())){
-        //    throw new GenericOutputException("Invalid email");
-        //}
-        //if (StringUtils.isBlank(voterInput.getName())){
-        //    throw new GenericOutputException("Invalid name");
-        //}
+        if (StringUtils.isBlank(electionInput.getDescription())){
+            throw new GenericOutputException("Invalid description");
+        }
+        if (StringUtils.isBlank(electionInput.getStateCode())){
+            throw new GenericOutputException("Invalid state code");
+        }
+        if (electionInput.getYear() < 2000 || electionInput.getYear() >= 2200){
+            throw new GenericOutputException("Invalid year");
+        }
+        String year = electionInput.getYear().toString();
+        if (StringUtils.isBlank(year)){
+            throw new GenericOutputException("Invalid year");
+        }
+        String [] state = {"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RR", "RO", "RJ", "RN", "RS", "SC", "SP", "SE", "TO"};
+        int i = 0;
+        for(String stateCode:state){
+            if (stateCode.equalsIgnoreCase(electionInput.getStateCode())){
+                i = 1;
+                break;
+            }
+        }
+        if (i == 0){
+            throw new GenericOutputException("Invalid state code");
+        }
 
        // } else {
             //if (!isUpdate) {
